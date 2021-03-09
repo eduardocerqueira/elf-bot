@@ -16,3 +16,7 @@ bookmark with helpful links to work with slack-app/bot.
 * https://slack.dev/bolt-python/concepts
 * https://slack.dev/bolt-python/tutorial/getting-started
 * https://api.slack.com/start/building/bolt-python
+
+### GIPHY API
+* https://developers.giphy.com/
+* https://github.com/Giphy/giphy-python-client

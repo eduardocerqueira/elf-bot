@@ -6,7 +6,7 @@ enable:
 
 ### Slash commands
 
-| Command |          Request URL          |        Short description        |      Usage hint       | 
+| Command |          Request URL          |        Short description        |      Usage hint       |
 |---------|-------------------------------|---------------------------------|-----------------------|
 | /test   | https://smee.io/CHANNEL_ID    | test elf and infra setup        |                       |
 
@@ -16,5 +16,3 @@ enable:
 at least these permissions must be added:
 
 ![scope](../docs/img/scope.png)
-
-

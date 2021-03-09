@@ -1,10 +1,10 @@
 # elf the bot
 
-elf the bot is a slack-app built to interact with 3rd-party systems as JIRA, Openstack and Openshift to assist 
+elf the bot is a slack-app built to interact with 3rd-party systems as JIRA, Openstack and Openshift to assist
 engineers with basic tasks and making the work-day a bit more fun!
 
-status: elf is on very begin of implementation phase, might not be fully functional yet, but even that you still want to 
-try, use with your own risk and there is no guarantee!  
+status: elf is on very begin of implementation phase, might not be fully functional yet, but even that you still want to
+try, use with your own risk and there is no guarantee!
 
 ### guide
 1. [install](docs/install.md)

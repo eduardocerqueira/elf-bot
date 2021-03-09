@@ -1,0 +1,34 @@
+{
+  "type": "modal",
+  "callback_id": "modal_testday",
+  "title": {
+    "type": "plain_text",
+    "text": "RHI Test Day"
+  },
+  "close": {
+    "type": "plain_text",
+    "text": "OK"
+  },
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "03/16/2021",
+        "emoji": true
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "Focus on new features for Summit 2021 \n\n join slack channel: #rhi-testday \n test cases: https://google.com \n bugs spreadsheet: https://google.com"
+      },
+      "accessory": {
+        "type": "image",
+        "image_url": "https://media.giphy.com/media/3o7aCUQ7TsQ3cndExq/giphy.gif",
+        "alt_text": "catch bugs"
+      }
+    }
+  ]
+}

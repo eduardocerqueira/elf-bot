@@ -4,7 +4,7 @@ backlog with features to be implemented:
 
 1. integrate with JIRA
     1. create cards
-    1. search by cards (assigned to me, repoted by me, contains filtering by status) 
+    1. search by cards (assigned to me, repoted by me, contains filtering by status)
 1. integrate with Openstack
     1. provision vm
     1. list vm
@@ -23,10 +23,8 @@ backlog with features to be implemented:
    1. reports, statistic
 1. tests and CI/CD with PR acceptance
    1. quay.io image build
-1. black and lint
 1. deploy script
    1. openshift descriptor files
    1. podman and docker
 1. AWS EC2
-1. 
-   
+1.

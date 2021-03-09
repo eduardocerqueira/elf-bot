@@ -1,4 +1,5 @@
 from os import getenv
+from pprint import pprint
 
 import giphy_client
 from giphy_client.rest import ApiException
@@ -17,32 +18,31 @@ if api_key is None:
     raise Exception("can't find GIPHY_API_KEY on environment variables")
 
 
-def giphy_api_search():
+def test_search():
     try:
         api_response = api_instance.gifs_search_get(
             api_key, q, limit=limit, offset=offset, rating=rating, lang=lang, fmt=fmt
         )
-        return api_response
+        # api_response.data[0].url
+        print(len(api_response.data))
+        assert len(api_response.data) > 0
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
 
 
-def giphy_api_random_gif():
-    gif = api_instance.gifs_random_get(api_key, rating="g", tag="software")
-    print(gif.data.url)
-    return gif.data.url
-
-
-def giphy_api_populate_list():
-    # allow function to execute once
-    # giphy_api_populate_list.__code__ = (lambda: None).__code__
-    print("loading gif_list from GIPHY API")
+def test_populate_list():
     gif_list = []
     for pg in range(0, 5):
         api_response = api_instance.gifs_search_get(
-            api_key, q, limit=50, offset=pg * 10, rating=rating, lang=lang, fmt=fmt  # iterate as pagination
+            api_key, q, limit=50, offset=pg * 10, rating=rating, lang=lang, fmt=fmt
         )
         for gif in api_response.data:
-            gif_list.append(gif.images.preview_gif.url)
-    print(f"gif_list loaded with {len(gif_list)} images")
-    return gif_list
+            gif_list.append(gif.images.preview_gif.url)  # api_response.data[0].images.preview_gif.url
+    print(len(gif_list))
+    assert len(gif_list) > 0
+
+
+def test_random_gif():
+    gif = api_instance.gifs_random_get(api_key, rating="g", tag="software")
+    print(gif.data.url)
+    assert gif

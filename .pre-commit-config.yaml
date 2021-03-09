@@ -1,0 +1,38 @@
+default_language_version:
+  python: python3
+
+exclude: elf-bot/docs
+
+repos:
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.4.0
+    hooks:
+      - id: reorder-python-imports
+  - repo: https://github.com/ambv/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+        args: [ --safe, --quiet, --line-length, "120" ]
+        require_serial: true
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: debug-statements
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.4
+    hooks:
+      - id: flake8
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.10.0
+    hooks:
+      - id: pyupgrade
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.26.0
+    hooks:
+      - id: yamllint
+        args:
+          - -d
+          - '{rules: {line-length: {max: 100}}}'
