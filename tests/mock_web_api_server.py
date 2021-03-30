@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 from urllib.request import Request
 from urllib.request import urlopen
 
-from utils import get_mock_server_mode
+from utils import get_mock_server_mode, gen_fake_token
 
 
 class MockHandler(SimpleHTTPRequestHandler):
@@ -25,10 +25,14 @@ class MockHandler(SimpleHTTPRequestHandler):
     received_requests = {}
 
     def is_valid_token(self):
-        return "Authorization" in self.headers and str(self.headers["Authorization"]).startswith("Bearer xoxb-")
+        return "Authorization" in self.headers and str(
+            self.headers["Authorization"]
+        ).startswith("Bearer xoxb-")
 
     def is_valid_user_token(self):
-        return "Authorization" in self.headers and str(self.headers["Authorization"]).startswith("Bearer xoxp-")
+        return "Authorization" in self.headers and str(
+            self.headers["Authorization"]
+        ).startswith("Bearer xoxp-")
 
     def set_common_headers(self):
         self.send_header("content-type", "application/json;charset=utf-8")
@@ -43,7 +47,7 @@ class MockHandler(SimpleHTTPRequestHandler):
     oauth_v2_access_response = """
 {
     "ok": true,
-    "access_token": "xoxb-17653672481-19874698323-pdFZKVeTuE8sk7oOcBrzbqgy",
+    "access_token": "FAKE-xoxb-17653672481-19874698323-pdFZKVeTuE8sk7oOcBrzbqgy-FAKE",
     "token_type": "bot",
     "scope": "chat:write,commands",
     "bot_user_id": "U0KRQLJ9H",
@@ -59,7 +63,7 @@ class MockHandler(SimpleHTTPRequestHandler):
     "authed_user": {
         "id": "U1234",
         "scope": "chat:write",
-        "access_token": "xoxp-1234",
+        "access_token": "FAKE-xoxp-1234-FAKE",
         "token_type": "user"
     }
 }
@@ -129,12 +133,16 @@ class MockHandler(SimpleHTTPRequestHandler):
                         if post_body.startswith("{"):
                             request_body = json.loads(post_body)
                         else:
-                            request_body = {k: v[0] for k, v in parse_qs(post_body).items()}
+                            request_body = {
+                                k: v[0] for k, v in parse_qs(post_body).items()
+                            }
                     except UnicodeDecodeError:
                         pass
                 else:
                     if parsed_path and parsed_path.query:
-                        request_body = {k: v[0] for k, v in parse_qs(parsed_path.query).items()}
+                        request_body = {
+                            k: v[0] for k, v in parse_qs(parsed_path.query).items()
+                        }
 
                 self.logger.info(f"request body: {request_body}")
 
@@ -188,7 +196,9 @@ class MockServerProcessTarget:
 
 
 class MonitorThread(threading.Thread):
-    def __init__(self, test: TestCase, handler: Type[SimpleHTTPRequestHandler] = MockHandler):
+    def __init__(
+        self, test: TestCase, handler: Type[SimpleHTTPRequestHandler] = MockHandler
+    ):
         threading.Thread.__init__(self, daemon=True)
         self.handler = handler
         self.test = test
@@ -200,7 +210,9 @@ class MonitorThread(threading.Thread):
             try:
                 req = Request(f"{self.test.server_url}/received_requests.json")
                 resp = urlopen(req, timeout=1)
-                self.test.mock_received_requests = json.loads(resp.read().decode("utf-8"))
+                self.test.mock_received_requests = json.loads(
+                    resp.read().decode("utf-8")
+                )
             except Exception as e:
                 # skip logging for the initial request
                 if self.test.mock_received_requests is not None:
@@ -218,7 +230,9 @@ class MonitorThread(threading.Thread):
 
 
 class MockServerThread(threading.Thread):
-    def __init__(self, test: TestCase, handler: Type[SimpleHTTPRequestHandler] = MockHandler):
+    def __init__(
+        self, test: TestCase, handler: Type[SimpleHTTPRequestHandler] = MockHandler
+    ):
         threading.Thread.__init__(self)
         self.handler = handler
         self.test = test

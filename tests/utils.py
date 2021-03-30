@@ -1,4 +1,12 @@
 import os
+from uuid import uuid4
+
+
+def gen_fake_token(length: int = None) -> str:
+    """ generate fake token to use on unit test """
+    rand_token = str(uuid4())
+    print(rand_token[:length])
+    return rand_token
 
 
 def remove_os_env_temporarily() -> dict:
